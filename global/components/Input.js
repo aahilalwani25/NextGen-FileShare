@@ -13,6 +13,7 @@ class Input extends Component {
     return (
       <Fragment>
         <TextInput
+        onChangeText={this.props.onChangeText}
           secureTextEntry={this.props.isPassword}
           style={[styles.textInput]}
           placeholder={this.props.placeholder}
