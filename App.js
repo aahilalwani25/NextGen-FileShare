@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import StackNavigator from './Navigations/StackNavigator';
 
 class App extends Component {
   constructor(props) {
@@ -10,9 +11,7 @@ class App extends Component {
 
   render() {
     return (
-      <View>
-        <Text> App </Text>
-      </View>
+      <StackNavigator/>
     );
   }
 }
