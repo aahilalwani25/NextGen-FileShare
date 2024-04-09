@@ -22,9 +22,7 @@ class StartScreen extends Component {
         </View>
 
         <View style={[styles.centerItems,{flex: 0.3}]}>
-          <PrimaryButton onPress={()=>this.props.navigation.navigate('login')}>
-            Get Started
-          </PrimaryButton>
+          <PrimaryButton text='Get Started' onPress={()=>this.props.navigation.navigate('login')}/>
         </View>
       </View>
     );

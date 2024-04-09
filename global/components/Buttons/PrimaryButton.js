@@ -12,7 +12,7 @@ class PrimaryButton extends Component {
   render() {
     return (
       <TouchableOpacity style={[styles.primaryButton]} onPress={this.props.onPress}>
-        <Text style={[styles.textBlack, styles.normalText]}>{this.props.children}</Text>
+        <Text style={[styles.textBlack, styles.normalText]}>{this.props.text}</Text>
       </TouchableOpacity>
     );
   }

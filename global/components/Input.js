@@ -1,20 +1,25 @@
-import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import React, {Component, Fragment} from 'react';
+import {View, Text, TextInput} from 'react-native';
+import {styles} from '../styles/styles';
+import ErrorLabel from './ErrorLabel';
 
 class Input extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
     return (
-      <TextInput 
-      style={{borderWidth:1, borderRadius:20}}
-      placeholder={this.props.placeholder}
-      placeholderTextColor={'grey'}
-      />
+      <Fragment>
+        <TextInput
+          secureTextEntry={this.props.isPassword}
+          style={[styles.textInput]}
+          placeholder={this.props.placeholder}
+          placeholderTextColor={'grey'}
+        />
+        <ErrorLabel error='error'/>
+      </Fragment>
     );
   }
 }
