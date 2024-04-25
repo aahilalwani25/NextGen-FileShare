@@ -1,6 +1,7 @@
 import { SET_BUTTON_PRESSED, SET_EMAIL, SET_PASSWORD } from "./types"
 
 function setEmail(email){
+    
     return{
         type:SET_EMAIL,
         payload:email

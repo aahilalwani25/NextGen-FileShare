@@ -7,7 +7,7 @@ class Dashboard extends Component {
     this.state = {
     };
 
-    this.ws= WebSocket('ws://192.168.0.125:5000')
+    //this.ws= WebSocket('ws://192.168.1.125:5000')
   }
 
   componentDidMount(){ //use effect

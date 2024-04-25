@@ -6,45 +6,86 @@ import Input from '../global/components/Input';
 import PrimaryButton from '../global/components/Buttons/PrimaryButton';
 import ErrorLabel from '../global/components/ErrorLabel';
 import {connect} from 'react-redux';
-import { GoogleButton } from '../global/components/Buttons/SocialAuthButtons';
-import { setButtonPressed, setEmail, setPassword } from '../Redux/Login/actions';
+import {GoogleButton} from '../global/components/Buttons/SocialAuthButtons';
+import {setButtonPressed, setEmail, setPassword} from '../Redux/Login/actions';
+import {setError, setIsError} from '../Redux/ErrorLabel/actions';
+
 
 class LoginScreen extends Component {
-  
-  
-
   constructor(props) {
     super(props);
     this.state = {};
 
-    this.ws= new WebSocket('ws://192.168.0.125:5000')
+    this.ws = new WebSocket('ws://192.168.0.125:5000');
   }
 
-  loginPressed(){
-    this.ws.onopen=(()=>{
-      console.log('connected')
-    })
+  loginPressed() {
+    console.log(this.props.email);
+    if (
+      !RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).test(
+        this.props.email,
+      )
+    ) {
+      setIsError(true);
+      setError('Invalid email');
+    } else {
+      setIsError(false);
+      setError(null);
+    }
+    // this.ws.onopen=(()=>{
+    //   console.log('connected')
+    // })
   }
 
-  componentDidMount(){
-    
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <View
-        style={[styles.screenColorLight, styles.container, styles.centerItems,{gap:30}]}>
+        style={[
+          styles.screenColorLight,
+          styles.container,
+          styles.centerItems,
+          {gap: 30},
+        ]}>
         <Heading>Login</Heading>
-        <View style={[{flexDirection: 'column', gap: 10, width:'100%', alignItems:'center'}]}>
-          <Input onChangeText={(email)=>this.props.setEmail(email)} placeholder="email" />
-          
-          <Input onChangeText={(password)=>this.props.setPassword(password)} placeholder="password" isPassword={true} />
+        <View
+          style={[
+            {
+              flexDirection: 'column',
+              gap: 10,
+              width: '100%',
+              alignItems: 'center',
+            },
+          ]}>
+          <Input
+            onChangeText={email => this.props.setEmail(email)}
+            is_error={this.props.is_error}
+            error={this.props.error}
+            placeholder="email"
+          />
 
-          <PrimaryButton text='Login' onPress={this.loginPressed()}/>
+          <Input
+            onChangeText={password => this.props.setPassword(password)}
+            placeholder="password"
+            isPassword={true}
+          />
+          {/* {this.props.is_error ? <ErrorLabel error={this.props.error} /> : null} */}
+          <PrimaryButton text="Login" onPress={this.loginPressed()} />
         </View>
 
-        <View style={[{flexDirection: 'column', gap: 10, width:'100%', alignItems:'center'}]}>
-          <GoogleButton/>
+        <View
+          style={[
+            {
+              flexDirection: 'column',
+              gap: 10,
+              width: '100%',
+              alignItems: 'center',
+            },
+          ]}>
+          <GoogleButton />
+
+          <PrimaryButton text='Login as Guest' onPress={this.props.navigation.navigate('display_name')}/>
         </View>
       </View>
     );
@@ -56,7 +97,15 @@ function mapStateToProps(state) {
     email: state.LoginReducer.email, //LoginReducer is in the reducer file
     password: state.LoginReducer.password,
     buttonPressed: state.LoginReducer.buttonPressed,
+    is_error: state.ErrorReducer.is_error,
+    error: state.ErrorReducer.error,
   };
 }
 
-export default connect(mapStateToProps,{setEmail,setPassword,setButtonPressed})(LoginScreen);
+export default connect(mapStateToProps, {
+  setEmail,
+  setPassword,
+  setButtonPressed,
+  setIsError,
+  setError,
+})(LoginScreen);
