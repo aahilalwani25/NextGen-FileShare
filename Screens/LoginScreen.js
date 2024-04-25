@@ -10,9 +10,24 @@ import { GoogleButton } from '../global/components/Buttons/SocialAuthButtons';
 import { setButtonPressed, setEmail, setPassword } from '../Redux/Login/actions';
 
 class LoginScreen extends Component {
+  
+  
+
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.ws= new WebSocket('ws://192.168.0.125:5000')
+  }
+
+  loginPressed(){
+    this.ws.onopen=(()=>{
+      console.log('connected')
+    })
+  }
+
+  componentDidMount(){
+    
   }
 
   render() {
@@ -25,7 +40,7 @@ class LoginScreen extends Component {
           
           <Input onChangeText={(password)=>this.props.setPassword(password)} placeholder="password" isPassword={true} />
 
-          <PrimaryButton text='Login' onPress={()=>console.log(this.props.email)}/>
+          <PrimaryButton text='Login' onPress={this.loginPressed()}/>
         </View>
 
         <View style={[{flexDirection: 'column', gap: 10, width:'100%', alignItems:'center'}]}>

@@ -1,7 +1,9 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, } from 'react';
 import {View, Text, TextInput} from 'react-native';
 import {styles} from '../styles/styles';
 import ErrorLabel from './ErrorLabel';
+import {connect} from 'react-redux'
+import { setError, setIsError } from '../../Redux/ErrorLabel/actions';
 
 class Input extends Component {
   constructor(props) {
@@ -19,10 +21,15 @@ class Input extends Component {
           placeholder={this.props.placeholder}
           placeholderTextColor={'grey'}
         />
-        <ErrorLabel error='error'/>
+        <ErrorLabel error='Error'/>
       </Fragment>
     );
   }
 }
 
-export default Input;
+const mapStateToProps=(state)=>({
+  is_error: state.ErrorReducer.is_error,
+  error: state.ErrorReducer.error
+})
+
+export default connect(mapStateToProps,{setIsError,setError}) (Input);

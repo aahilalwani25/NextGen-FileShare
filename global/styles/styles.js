@@ -57,7 +57,8 @@ export const styles = StyleSheet.create({
   logo: {objectFit: 'contain', width: width * 0.09, height: height * 0.09},
   textInput: {borderWidth: 1, borderRadius: 20, width: '60%', color: 'black'},
   errorLabel: {
-    color: 'red',
-    fontSize: 20,
+    color: '#FF0202',
+    fontSize: 15,
+    alignSelf:'flex-start'
   },
 });

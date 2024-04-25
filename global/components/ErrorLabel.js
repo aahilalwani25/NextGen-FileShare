@@ -12,7 +12,10 @@ class ErrorLabel extends Component {
 
   render() {
     return (
-      <Text styles={[styles.errorLabel]}>{this.props.error}</Text>
+      
+        <Text style={[styles.errorLabel]}>{this.props.error}</Text>
+      
+      
     );
   }
 }
