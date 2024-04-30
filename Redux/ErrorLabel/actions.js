@@ -1,17 +1,12 @@
-import { SET_ERROR, SET_IS_ERROR } from "./types";
+import { SET_EMAIL_ERROR } from "./types";
 
-function setError(error){
+function setEmailError(is_error,error){
     return{
-        type: SET_ERROR,
-        payload: error
+        type: SET_EMAIL_ERROR,
+        payload: {
+            is_error,error
+        }
     }
 }
 
-function setIsError(is_error){
-    return{
-        type: SET_IS_ERROR,
-        payload: is_error
-    }
-}
-
-export {setError,setIsError}
+export {setEmailError}

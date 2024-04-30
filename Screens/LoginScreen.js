@@ -8,7 +8,7 @@ import ErrorLabel from '../global/components/ErrorLabel';
 import {connect} from 'react-redux';
 import {GoogleButton} from '../global/components/Buttons/SocialAuthButtons';
 import {setButtonPressed, setEmail, setPassword} from '../Redux/Login/actions';
-import {setError, setIsError} from '../Redux/ErrorLabel/actions';
+import {setEmailError} from '../Redux/ErrorLabel/actions';
 
 
 class LoginScreen extends Component {
@@ -16,7 +16,7 @@ class LoginScreen extends Component {
     super(props);
     this.state = {};
 
-    this.ws = new WebSocket('ws://192.168.0.125:5000');
+    //this.ws = new WebSocket('ws://192.168.0.125:5000');
   }
 
   loginPressed() {
@@ -26,11 +26,9 @@ class LoginScreen extends Component {
         this.props.email,
       )
     ) {
-      setIsError(true);
-      setError('Invalid email');
+      this.props.setEmailError(true,'invalid email');
     } else {
-      setIsError(false);
-      setError(null);
+      this.props.setEmailError(false,null);
     }
     // this.ws.onopen=(()=>{
     //   console.log('connected')
@@ -71,7 +69,7 @@ class LoginScreen extends Component {
             isPassword={true}
           />
           {/* {this.props.is_error ? <ErrorLabel error={this.props.error} /> : null} */}
-          <PrimaryButton text="Login" onPress={this.loginPressed()} />
+          <PrimaryButton text="Login" onPress={this.loginPressed} />
         </View>
 
         <View
@@ -85,7 +83,7 @@ class LoginScreen extends Component {
           ]}>
           <GoogleButton />
 
-          <PrimaryButton text='Login as Guest' onPress={this.props.navigation.navigate('display_name')}/>
+          <PrimaryButton text='Login as Guest' onPress={()=>this.props.navigation.navigate('display_name')}/>
         </View>
       </View>
     );
@@ -93,11 +91,12 @@ class LoginScreen extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('Redux State: ', state)
   return {
     email: state.LoginReducer.email, //LoginReducer is in the reducer file
     password: state.LoginReducer.password,
     buttonPressed: state.LoginReducer.buttonPressed,
-    is_error: state.ErrorReducer.is_error,
+    isEmailerror: state.ErrorReducer.is_error,
     error: state.ErrorReducer.error,
   };
 }
@@ -106,6 +105,5 @@ export default connect(mapStateToProps, {
   setEmail,
   setPassword,
   setButtonPressed,
-  setIsError,
-  setError,
+  setEmailError,
 })(LoginScreen);
