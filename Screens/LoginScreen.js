@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {styles} from '../global/styles/styles';
 import Heading from '../global/components/Heading';
 import Input from '../global/components/Input';
-import PrimaryButton from '../global/components/Buttons/PrimaryButton';
-import ErrorLabel from '../global/components/ErrorLabel';
+import {PrimaryButton} from '../global/components/Buttons/PrimaryButton';
+//import ErrorLabel from '../global/components/ErrorLabel';
 import {connect} from 'react-redux';
 import {GoogleButton} from '../global/components/Buttons/SocialAuthButtons';
-import {setButtonPressed, setEmail, setPassword} from '../Redux/Login/actions';
-import {setEmailError} from '../Redux/ErrorLabel/actions';
-
+import {setEmail, setPassword} from '../Redux/Login/actions';
+import {setEmailError} from '../Redux/Error/actions';
+import { bindActionCreators } from 'redux';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -20,15 +20,15 @@ class LoginScreen extends Component {
   }
 
   loginPressed() {
-    console.log(this.props.email);
+    //console.log(this.props.email);
     if (
       !RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).test(
         this.props.email,
       )
     ) {
-      this.props.setEmailError(true,'invalid email');
+      this.props.setEmailError(true, 'invalid email');
     } else {
-      this.props.setEmailError(false,null);
+      this.props.setEmailError(false, null);
     }
     // this.ws.onopen=(()=>{
     //   console.log('connected')
@@ -58,8 +58,8 @@ class LoginScreen extends Component {
           ]}>
           <Input
             onChangeText={email => this.props.setEmail(email)}
-            is_error={this.props.is_error}
-            error={this.props.error}
+            is_error={this.props.isEmailerror}
+            error={this.props.emailError}
             placeholder="email"
           />
 
@@ -83,7 +83,10 @@ class LoginScreen extends Component {
           ]}>
           <GoogleButton />
 
-          <PrimaryButton text='Login as Guest' onPress={()=>this.props.navigation.navigate('display_name')}/>
+          <PrimaryButton
+            text="Login as Guest"
+            onPress={() => this.props.navigation.navigate('display_name')}
+          />
         </View>
       </View>
     );
@@ -91,19 +94,22 @@ class LoginScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('Redux State: ', state)
+  console.log('Redux State: ', state);
   return {
-    email: state.LoginReducer.email, //LoginReducer is in the reducer file
+    email: state.LoginReducer.email,
     password: state.LoginReducer.password,
-    buttonPressed: state.LoginReducer.buttonPressed,
     isEmailerror: state.ErrorReducer.is_error,
-    error: state.ErrorReducer.error,
+    emailError: state.ErrorReducer.error,
   };
 }
 
-export default connect(mapStateToProps, {
-  setEmail,
-  setPassword,
-  setButtonPressed,
-  setEmailError,
-})(LoginScreen);
+function mapDispatchToProps(dispatch){
+  console.log(dispatch);
+  return bindActionCreators({
+    setEmail,
+    setPassword,
+    setEmailError,
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

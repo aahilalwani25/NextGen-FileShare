@@ -1,6 +1,6 @@
 import {combineReducers, createStore} from 'redux';
 import LoginReducer from './Login/reducer';
-import { ErrorReducer } from './ErrorLabel/reducer';
+import ErrorReducer from './Error/reducer';
 
 //here all reducers is stored
 const rootReducer = combineReducers({

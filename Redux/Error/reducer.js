@@ -1,7 +1,7 @@
 import {initialState} from './state';
-import {SET_EMAIL_ERROR, SET_ERROR, SET_IS_ERROR} from './types';
+import {SET_EMAIL_ERROR} from './types';
 
-export function ErrorReducer(state = initialState, action) {
+export default function ErrorReducer(state = initialState, action) {
   switch (action.type) {
     case SET_EMAIL_ERROR: {
       return {

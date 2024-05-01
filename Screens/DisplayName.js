@@ -7,7 +7,7 @@ import Input from '../global/components/Input';
 import PrimaryButton from '../global/components/Buttons/PrimaryButton';
 
 
-export class DisplayName extends Component {
+class DisplayName extends Component {
   render() {
     return (
       <View
@@ -21,7 +21,7 @@ export class DisplayName extends Component {
         <NormalText>Show your name to other users</NormalText>
         <Input placeholder="Display Name" />
 
-        <PrimaryButton text='Show' onPress={this.props.navigation.navigate('dashboard')}/>
+        <PrimaryButton text='Show' onPress={()=>this.props.navigation.navigate('dashboard')}/>
       </View>
     );
   }

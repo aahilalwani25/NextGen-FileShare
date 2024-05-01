@@ -5,6 +5,7 @@ import Heading from '../global/components/Heading';
 import PrimaryButton from '../global/components/Buttons/PrimaryButton';
 
 class StartScreen extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {};
@@ -22,7 +23,7 @@ class StartScreen extends Component {
         </View>
 
         <View style={[styles.centerItems,{flex: 0.3}]}>
-          <PrimaryButton text='Get Started' onPress={()=>this.props.navigation.navigate('login')}/>
+          <PrimaryButton text='Get Started' onPress={()=>this.props.navigation.navigate('display_name')}/>
         </View>
       </View>
     );

@@ -1,6 +1,6 @@
 import { SET_EMAIL_ERROR } from "./types";
 
-function setEmailError(is_error,error){
+export function setEmailError(is_error,error){
     return{
         type: SET_EMAIL_ERROR,
         payload: {
@@ -9,4 +9,3 @@ function setEmailError(is_error,error){
     }
 }
 
-export {setEmailError}

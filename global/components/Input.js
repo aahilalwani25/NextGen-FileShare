@@ -3,7 +3,7 @@ import {View, Text, TextInput} from 'react-native';
 import {styles} from '../styles/styles';
 import ErrorLabel from './ErrorLabel';
 import {connect} from 'react-redux';
-import {setError, setIsError} from '../../Redux/ErrorLabel/actions';
+import {setError, setIsError} from '../../Redux/Error/actions';
 
 export class Input extends Component {
   constructor(props) {
