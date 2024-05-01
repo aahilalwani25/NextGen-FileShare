@@ -14,9 +14,8 @@ import { bindActionCreators } from 'redux';
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-
-    //this.ws = new WebSocket('ws://192.168.0.125:5000');
+    this.state = {
+    };
   }
 
   loginPressed() {
