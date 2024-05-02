@@ -61,4 +61,13 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     alignSelf:'flex-start'
   },
+  fullScreen:{
+    flex:1
+  },
+  border:{
+    borderColor:'black',
+    borderWidth:1,
+    padding: width*0.05,
+    borderRadius:20
+  }
 });
