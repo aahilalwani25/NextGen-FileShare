@@ -92,23 +92,24 @@ class LoginScreen extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  console.log('Redux State: ', state);
-  return {
-    email: state.LoginReducer.email,
-    password: state.LoginReducer.password,
-    isEmailerror: state.ErrorReducer.is_error,
-    emailError: state.ErrorReducer.error,
-  };
-}
+// function mapStateToProps(state) {
+//   console.log('Redux State: ', state);
+//   return {
+//     email: state.LoginReducer.email,
+//     password: state.LoginReducer.password,
+//     isEmailerror: state.ErrorReducer.is_error,
+//     emailError: state.ErrorReducer.error,
+//   };
+// }
 
-function mapDispatchToProps(dispatch){
-  console.log(dispatch);
-  return bindActionCreators({
-    setEmail,
-    setPassword,
-    setEmailError,
-  }, dispatch);
-}
+// function mapDispatchToProps(dispatch){
+//   console.log(dispatch);
+//   return bindActionCreators({
+//     setEmail,
+//     setPassword,
+//     setEmailError,
+//   }, dispatch);
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+// export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default LoginScreen;

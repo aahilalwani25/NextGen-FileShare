@@ -1,6 +1,6 @@
-import { SET_BUTTON_PRESSED, SET_EMAIL, SET_PASSWORD } from "./types"
+import { SET_EMAIL, SET_PASSWORD } from "./types"
 
-function setEmail(email){
+export function setEmail(email){
     
     return{
         type:SET_EMAIL,
@@ -8,18 +8,9 @@ function setEmail(email){
     }
 }
 
-function setPassword(password){
+export function setPassword(password){
     return{
         type:SET_PASSWORD,
         payload:password
     }
 }
-
-function setButtonPressed(buttonPressed){
-    return{
-        type:SET_BUTTON_PRESSED,
-        payload:buttonPressed
-    }
-}
-
-export {setButtonPressed,setEmail,setPassword};

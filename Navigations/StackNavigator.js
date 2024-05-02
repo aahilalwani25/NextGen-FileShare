@@ -4,7 +4,7 @@ import {Component} from 'react';
 import StartScreen from '../Screens/StartScreen';
 import Dashboard from '../Screens/Dashboard';
 import DisplayName from '../Screens/DisplayName';
-//import LoginScreen from '../Screens/LoginScreen';
+import LoginScreen from '../Screens/LoginScreen';
 
 const Stack = createStackNavigator();
 

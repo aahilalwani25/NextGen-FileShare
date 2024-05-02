@@ -5,7 +5,7 @@ import ErrorLabel from './ErrorLabel';
 import {connect} from 'react-redux';
 import {setError, setIsError} from '../../Redux/Error/actions';
 
-export class Input extends Component {
+class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -28,9 +28,11 @@ export class Input extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  is_error: state.ErrorReducer.is_error,
-  error: state.ErrorReducer.error,
-});
+export default Input;
 
-export default connect(mapStateToProps, {setIsError, setError})(Input);
+// const mapStateToProps = state => ({
+//   is_error: state.ErrorReducer.is_error,
+//   error: state.ErrorReducer.error,
+// });
+
+// export default connect(mapStateToProps, {setIsError, setError})(Input);
