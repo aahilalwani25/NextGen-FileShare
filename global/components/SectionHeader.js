@@ -9,6 +9,9 @@ const {width, height} = Dimensions.get('screen');
 export class SectionHeader extends Component {
   constructor(props) {
     super(props);
+
+    
+    
   }
   render() {
     return (
@@ -17,7 +20,7 @@ export class SectionHeader extends Component {
           {
             padding: width * 0.01,
             flexDirection: 'row',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: 'baseline',
           },
           styles.border,
