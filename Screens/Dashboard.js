@@ -7,6 +7,7 @@ import SectionHeader from '../global/components/SectionHeader';
 import { io } from 'socket.io-client';
 import { bindActionCreators } from 'redux';
 import { setConnection, setOnlineClients } from '../Redux/Dashboard/actions';
+import { connect } from 'react-redux';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -14,28 +15,19 @@ class Dashboard extends Component {
 
   constructor(props) {
     super(props);
-    
-    //this.socket= io('https://aahilalwani25.pythonanywhere.com/')
-    this.socket= io('http://192.168.1.125:5000')
+    this.props.clientSocket.emit('show-online-clients')
   }
 
-  componentDidMount() {
-    this.socket.on('connect',()=>{
+  
 
-      
-      this.socket.emit('send-socket', this.socket);
-      console.log("connected to the server");
-
-      this.socket.on('connection-response', (data)=>{
-        console.log('client connected: ',data);
-      })
-
+  componentDidMount(){
+    this.props.clientSocket.on('online-clients', (clients)=>{
+      //console.log(clients)
+      this.props.setOnlineClients([...clients])
+      console.log(this.props.onlineClients)
     })
-
-    
-
-    
   }
+  
 
   renderItem = data => (
     // <View>
@@ -45,7 +37,7 @@ class Dashboard extends Component {
     //   ))}
     // </View>
     <View style={{paddingLeft: width * 0.05, paddingVertical: width * 0.05}}>
-      <NormalText>{data}</NormalText>
+      <NormalText>{data['name']}</NormalText>
     </View>
   );
 
@@ -74,7 +66,7 @@ class Dashboard extends Component {
             sections={[
               {
                 title: 'Online Clients',
-                data: ['Aahil', 'Omer'],
+                data: this.props.onlineClients["clients"]
               },
             ]}
             ItemSeparatorComponent={() => (
