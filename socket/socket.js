@@ -6,5 +6,5 @@ import {IP_ADDRESS,PORT} from '@env'
 
 
 console.log(IP_ADDRESS)
-const socket = io(`http://${IP_ADDRESS}:${PORT}`);
+const socket = io(`https://aahilalwani25.pythonanywhere.com`);
 export default socket;

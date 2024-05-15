@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {View, Text, Dimensions, SectionList} from 'react-native';
-import {styles} from '../global/styles/styles';
+import React, { Component } from 'react';
+import { View, Text, Dimensions, SectionList } from 'react-native';
+import { styles } from '../global/styles/styles';
 import NormalText from '../global/components/NormalText';
 import PrimaryButton from '../global/components/Buttons/PrimaryButton';
 import SectionHeader from '../global/components/SectionHeader';
@@ -8,8 +8,9 @@ import { io } from 'socket.io-client';
 import { bindActionCreators } from 'redux';
 import { setConnection, setOnlineClients } from '../Redux/Dashboard/actions';
 import { connect } from 'react-redux';
+import DocumentPicker from 'react-native-document-picker';
 
-const {width, height} = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
 class Dashboard extends Component {
 
@@ -18,16 +19,46 @@ class Dashboard extends Component {
     this.props.clientSocket.emit('show-online-clients')
   }
 
-  
 
-  componentDidMount(){
-    this.props.clientSocket.on('online-clients', (clients)=>{
+  //MYCODE DOCUMENT PICKER
+  selectDoc() {
+    const selectDoc = async () => {
+      try {
+        // const doc= await DocumentPicker.pick({
+        //   type: [DocumentPicker.type.pdf],
+        //   allowMultiSelection: true
+        // });
+        const doc = await DocumentPicker.pickMultiple({
+          type: [DocumentPicker.types.pdf, DocumentPicker.types.images]
+        })
+        console.log(doc)
+
+      } catch (err) {
+        if (DocumentPicker.isCancle(err))
+          console.log("User Cancelled The Upload", err);
+        else
+          console.log(err)
+
+      }
+
+    }
+
+
+
+
+
+
+
+
+  }
+  componentDidMount() {
+    this.props.clientSocket.on('online-clients', (clients) => {
       //console.log(clients)
       this.props.setOnlineClients([...clients])
       console.log(this.props.onlineClients)
     })
   }
-  
+
 
   renderItem = data => (
     // <View>
@@ -36,7 +67,7 @@ class Dashboard extends Component {
     //     <Text key={index}>{name}</Text>
     //   ))}
     // </View>
-    <View style={{paddingLeft: width * 0.05, paddingVertical: width * 0.05}}>
+    <View style={{ paddingLeft: width * 0.05, paddingVertical: width * 0.05 }}>
       <NormalText>{data['name']}</NormalText>
     </View>
   );
@@ -62,7 +93,7 @@ class Dashboard extends Component {
             },
             styles.border,
           ]}>
-          <SectionList
+          {/* <SectionList
             sections={[
               {
                 title: 'Online Clients',
@@ -83,10 +114,24 @@ class Dashboard extends Component {
             )}
             keyExtractor={(item, index) => item + index} // Use index as key
             renderItem={({item}) => this.renderItem(item)} // Pass item to renderItem
-          />
+          /> */}
         </View>
 
-        <PrimaryButton text={'Send File'} />
+        <PrimaryButton text={'Send File'} onPress={() => this.selectDoc()} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </View>
     );
   }
@@ -100,7 +145,7 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   console.log(dispatch);
   return bindActionCreators({
     setConnection,
