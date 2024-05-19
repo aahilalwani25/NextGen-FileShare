@@ -4,8 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import StartScreen from '../Screens/StartScreen';
 import Dashboard from '../Screens/Dashboard';
 import DisplayName from '../Screens/DisplayName';
-import socketManager from '../socket/socket';
-import ImportFile from '../Screens/ImportFile';
+import socket from '../socket/socket';
 
 const Stack = createStackNavigator();
 
@@ -13,15 +12,16 @@ class StackNavigator extends Component {
   constructor(props) {
     super(props);
     // Initialize socket connection (if needed) - Example: socket.connect('http://192.168.3.37:5000');
-    this.clientSocket= socketManager.connect();
+    this.clientSocket= socket.connect();
+    console.log('Socket ID:', this.clientSocket.id);
   }
 
   componentDidMount() {
     // Emit socket event only if socket is connected
-    if (this.clientSocket.connected) {
+    //if (this.clientSocket.connected) {
       console.log('Socket ID:', this.clientSocket.id);
       // Example: Emit socket ID to server
-    }
+    //}
   
   }
 
@@ -36,7 +36,7 @@ class StackNavigator extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator >
+        <Stack.Navigator>
           <Stack.Screen
             name="start"
             component={StartScreen}
@@ -56,9 +56,6 @@ class StackNavigator extends Component {
             })}
           >
             {props => <Dashboard {...props} clientSocket={this.clientSocket} />}
-          </Stack.Screen>
-          <Stack.Screen name='ImportFile'>
-          {props => <ImportFile {...props}  />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
