@@ -17,9 +17,7 @@ class Dashboard extends Component {
     this.props.clientSocket.emit('show-online-clients');
   }
 
-  componentDidUpdate(){
-    
-  }
+  
 
   componentDidMount() {
     
@@ -94,6 +92,7 @@ class Dashboard extends Component {
         </View>
 
         <PrimaryButton text={'Import File'} />
+        
       </View>
     );
   }
