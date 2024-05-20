@@ -19,6 +19,11 @@ class Dashboard extends Component {
     this.props.clientSocket.emit('show-online-clients')
   }
 
+  componentWillUnmount() {
+    // Remove the 'online-clients' event listener when the component is unmounted
+    this.props.clientSocket.off('online-clients');
+  }
+
 
   //MYCODE DOCUMENT PICKER
   async selectDoc() {
