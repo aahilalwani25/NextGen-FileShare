@@ -6,5 +6,5 @@ import {IP_ADDRESS,PORT} from '@env'
 
 
 console.log(IP_ADDRESS)
-const socket = io(`http://192.168.0.121:5000`);
+const socket = io(`http://192.168.1.125:5000`);
 export default socket;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, SectionList } from 'react-native';
+import { View, Text, Dimensions, SectionList, Image } from 'react-native';
 import { styles } from '../global/styles/styles';
 import NormalText from '../global/components/NormalText';
 import PrimaryButton from '../global/components/Buttons/PrimaryButton';
@@ -17,6 +17,14 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.props.clientSocket.emit('show-online-clients')
+  }
+
+  componentDidUpdate(){
+    this.props.clientSocket.on('online-clients', clients => {
+      //console.log(this.props.onlineClients);
+      this.props.setOnlineClients(clients['clients']);
+      console.log(this.props.onlineClients);
+    });
   }
 
 
