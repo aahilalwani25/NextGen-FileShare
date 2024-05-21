@@ -5,7 +5,7 @@ import StartScreen from '../Screens/StartScreen';
 import Dashboard from '../Screens/Dashboard';
 import DisplayName from '../Screens/DisplayName';
 import socket from '../socket/socket';
-import ImportFile from '../Screens/ImportFile';
+import SelectedFilesScreen from '../Screens/SelectedFilesScreen';
 
 const Stack = createStackNavigator();
 
@@ -50,7 +50,7 @@ class StackNavigator extends Component {
             {props => <Dashboard {...props} clientSocket={this.clientSocket} />}
           </Stack.Screen>
           <Stack.Screen name='ImportFile'>
-          {props => <ImportFile {...props}  />}
+          {props => <SelectedFilesScreen {...props}  />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

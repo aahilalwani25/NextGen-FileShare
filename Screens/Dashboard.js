@@ -8,6 +8,7 @@ import { io } from 'socket.io-client';
 import { bindActionCreators } from 'redux';
 import { setConnection, setOnlineClients } from '../Redux/Dashboard/actions';
 import { connect } from 'react-redux';
+import DocumentController from '../Controller/DocumentController';
 import DocumentPicker from 'react-native-document-picker';
 
 const { width, height } = Dimensions.get('screen');
@@ -19,7 +20,7 @@ class Dashboard extends Component {
     this.props.clientSocket.emit('show-online-clients')
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     this.props.clientSocket.on('online-clients', clients => {
       //console.log(this.props.onlineClients);
       this.props.setOnlineClients(clients['clients']);
@@ -42,20 +43,27 @@ class Dashboard extends Component {
       //   allowMultiSelection: true
       // });
       const doc = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf, DocumentPicker.types.images]
+        allowMultiSelection,
+        copyTo: "cachesDirectory",
+
+        type: [DocumentPicker.types.allFiles]
       })
-      console.log(doc)
-      this.props.navigation.navigate("ImportFile",{document:doc})
+      return ({
+        "isSelected": true,
+        "documentSelected": doc
+      })
+
 
     } catch (err) {
       if (DocumentPicker.isCancel(err))
-        console.log("User Cancelled The Upload", err);
-      else
-        console.log(err)
-
-
+        return ({
+          "isSelected": true,
+          "documentSelected": null
+        });
     }
   }
+
+
   componentDidMount() {
     this.props.clientSocket.on('online-clients', clients => {
       //console.log(this.props.onlineClients);
@@ -122,7 +130,18 @@ class Dashboard extends Component {
           />
         </View>
 
-        <PrimaryButton text={'Send File'} onPress={() => this.selectDoc()} />
+        <PrimaryButton text={'Import File'} onPress={async () => {
+          const documentController = new DocumentController();
+          documentController.selectDoc().then((selected) => {
+            if(selected['isSelected']){
+              this.props.navigation.navigate('ImportFile',{"document": selected['documentSelected']})
+            }
+          })
+          //console.log(selected)
+
+
+
+        }} />
       </View>
     );
   }
