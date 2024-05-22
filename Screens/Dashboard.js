@@ -10,6 +10,7 @@ import { setConnection, setOnlineClients } from '../Redux/Dashboard/actions';
 import { connect } from 'react-redux';
 import DocumentController from '../Controller/DocumentController';
 import DocumentPicker from 'react-native-document-picker';
+import { setDocumentToBeSent } from '../Redux/SelectClient/action';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -17,7 +18,10 @@ class Dashboard extends Component {
 
   constructor(props) {
     super(props);
-    this.props.clientSocket.emit('show-online-clients')
+    this.props.clientSocket.emit('show-online-clients');
+    this.state={
+      onlineClients:[]
+    }
   }
 
   componentDidUpdate() {
@@ -32,37 +36,6 @@ class Dashboard extends Component {
     // Remove the 'online-clients' event listener when the component is unmounted
     this.props.clientSocket.off('online-clients');
   }
-
-
-  //MYCODE DOCUMENT PICKER
-  async selectDoc() {
-
-    try {
-      // const doc= await DocumentPicker.pick({
-      //   type: [DocumentPicker.type.pdf],
-      //   allowMultiSelection: true
-      // });
-      const doc = await DocumentPicker.pick({
-        allowMultiSelection,
-        copyTo: "cachesDirectory",
-
-        type: [DocumentPicker.types.allFiles]
-      })
-      return ({
-        "isSelected": true,
-        "documentSelected": doc
-      })
-
-
-    } catch (err) {
-      if (DocumentPicker.isCancel(err))
-        return ({
-          "isSelected": true,
-          "documentSelected": null
-        });
-    }
-  }
-
 
   componentDidMount() {
     this.props.clientSocket.on('online-clients', clients => {
@@ -134,7 +107,8 @@ class Dashboard extends Component {
           const documentController = new DocumentController();
           documentController.selectDoc().then((selected) => {
             if(selected['isSelected']){
-              this.props.navigation.navigate('ImportFile',{"document": selected['documentSelected']})
+              this.props.setDocumentToBeSent(selected['documentSelected'])
+              this.props.navigation.navigate('ImportFile',{"document": this.props.document})
             }
           })
           //console.log(selected)
@@ -151,7 +125,8 @@ function mapStateToProps(state) {
   console.log('Redux State: ', state);
   return {
     isConnected: state.DashboardReducer.name,
-    onlineClients: state.DashboardReducer.onlineClients
+    onlineClients: state.DashboardReducer.onlineClients,
+    document: state.SelectClientReducer.document,
   };
 }
 
@@ -159,7 +134,8 @@ function mapDispatchToProps(dispatch) {
   console.log(dispatch);
   return bindActionCreators({
     setConnection,
-    setOnlineClients
+    setOnlineClients,
+    setDocumentToBeSent
   }, dispatch);
 }
 

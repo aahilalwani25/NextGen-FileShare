@@ -6,6 +6,8 @@ import Dashboard from '../Screens/Dashboard';
 import DisplayName from '../Screens/DisplayName';
 import socket from '../socket/socket';
 import SelectedFilesScreen from '../Screens/SelectedFilesScreen';
+import SelectClientsScreen from '../Screens/SelectClientsScreen';
+import DocumentController from '../Controller/DocumentController';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +22,8 @@ class StackNavigator extends Component {
     // Emit socket event only if socket is connected
     if (this.clientSocket.connected) {
       console.log('Socket ID:', this.clientSocket.id);
+      this.clientSocket.on('file-received', ()=>new DocumentController().receiveDoc(this.clientSocket));
+
       // Example: Emit socket ID to server
     }
   
@@ -50,7 +54,10 @@ class StackNavigator extends Component {
             {props => <Dashboard {...props} clientSocket={this.clientSocket} />}
           </Stack.Screen>
           <Stack.Screen name='ImportFile'>
-          {props => <SelectedFilesScreen {...props}  />}
+          {props => <SelectedFilesScreen {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name='selectClient'>
+            {props => <SelectClientsScreen {...props} clientSocket={this.clientSocket}/>}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

@@ -32,7 +32,10 @@ class DisplayName extends Component {
         <Input placeholder="Display Name" onChangeText={(name)=> this.props.setName(name)}/>
 
         <PrimaryButton text='Show' onPress={()=>{
-          this.props.clientSocket.emit('set-name', this.props.name);
+          this.props.clientSocket.emit('set-name', {
+            name: this.props.name,
+            
+          });
           this.props.navigation.navigate('dashboard',{name: this.props.name})
           }}/>
       </View>
