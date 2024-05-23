@@ -18,17 +18,14 @@ class Dashboard extends Component {
 
   constructor(props) {
     super(props);
-    this.props.clientSocket.emit('show-online-clients');
-    this.state={
-      onlineClients:[]
-    }
   }
 
   componentDidUpdate() {
+    this.props.clientSocket.emit('show-online-clients');
     this.props.clientSocket.on('online-clients', clients => {
       //console.log(this.props.onlineClients);
       this.props.setOnlineClients(clients['clients']);
-      console.log(this.props.onlineClients);
+      //console.log(this.props.onlineClients);
     });
   }
 
@@ -38,11 +35,18 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    this.props.clientSocket.emit('show-online-clients');
     this.props.clientSocket.on('online-clients', clients => {
       //console.log(this.props.onlineClients);
       this.props.setOnlineClients(clients['clients']);
-      console.log(this.props.onlineClients);
+      //console.log(this.props.onlineClients);
+
+      
     });
+
+    // this.interval = setInterval(() => {
+    //   this.props.clientSocket.emit('show-online-clients');
+    // }, 1000);
   }
 
 
@@ -122,7 +126,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('Redux State: ', state);
+  //console.log('Redux State: ', state);
   return {
     isConnected: state.DashboardReducer.name,
     onlineClients: state.DashboardReducer.onlineClients,

@@ -34,7 +34,6 @@ class DisplayName extends Component {
         <PrimaryButton text='Show' onPress={()=>{
           this.props.clientSocket.emit('set-name', {
             name: this.props.name,
-            
           });
           this.props.navigation.navigate('dashboard',{name: this.props.name})
           }}/>
@@ -45,7 +44,7 @@ class DisplayName extends Component {
 
 
 function mapStateToProps(state) {
-  console.log('Redux State: ', state);
+  //console.log('Redux State: ', state);
   return {
     name: state.DisplayNameReducer.name
   };

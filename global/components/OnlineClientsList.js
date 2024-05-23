@@ -13,7 +13,7 @@ const {width, height} = Dimensions.get('screen');
 class OnlineClientsList extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.onlineClients);
+    //console.log(this.props.onlineClients);
   }
 
   renderItem = data => (
@@ -70,7 +70,7 @@ class OnlineClientsList extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('Redux State: ', state);
+  //console.log('Redux State: ', state);
   return {
     selectedClientSocketID: state.SelectClientReducer.selectedClientSocketID,
     onlineClients: state.DashboardReducer.onlineClients

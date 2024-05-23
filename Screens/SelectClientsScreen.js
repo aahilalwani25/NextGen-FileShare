@@ -72,7 +72,7 @@ export class SelectClientsScreen extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('Redux State: ', state);
+  //console.log('Redux State: ', state);
   return {
     document: state.SelectClientReducer.document,
     selectedClientSocketID: state.SelectClientReducer.selectedClientSocketID,

@@ -22,11 +22,15 @@ class StackNavigator extends Component {
     // Emit socket event only if socket is connected
     if (this.clientSocket.connected) {
       console.log('Socket ID:', this.clientSocket.id);
-      this.clientSocket.on('file-received', ()=>new DocumentController().receiveDoc(this.clientSocket));
 
       // Example: Emit socket ID to server
     }
+    this.clientSocket.on('file-received', async (data) =>new DocumentController().downloadDoc(data));
   
+  }
+
+  componentDidUpdate(){
+    this.clientSocket.on('file-received', async (data) =>new DocumentController().downloadDoc(data));
   }
 
   render() {
