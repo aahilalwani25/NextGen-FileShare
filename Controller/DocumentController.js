@@ -7,22 +7,24 @@ import PermissionController from './PermissionController';
 
 export default class DocumentController {
   async downloadDoc(data) {
+
+    console.log(data);
     //clientSocket.on('file-received', async (data) => {
     try {
       // Decode the Base64 string back to binary data
       //const decodedData = await Base64.decode(data['file']);
 
       // Specify the path where the file will be saved
-      const requestController = new PermissionController();
+      // const requestController = new PermissionController();
 
-      if (await requestController.requestStorage()) {
+      // if (await requestController.requestStorage()) {
         const filePath = `${RNFS.DownloadDirectoryPath}/${data['filename']}`;
 
         // Write the decoded data to a file
         RNFS.writeFile(filePath, data['file'], 'base64').then(() => {
           Alert.alert('Success', `File downloaded to: ${filePath}`);
         });
-      }
+      //}
     } catch (error) {
       console.error('Error downloading file:', error);
     }
